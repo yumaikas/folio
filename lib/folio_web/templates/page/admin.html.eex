@@ -1,0 +1,31 @@
+<table>
+	<%= for idea <- @ideas do %>
+		<tr>
+			<td><%=link(idea.tag, to: "/view/bytag/#{idea.tag}")%></td>
+			<td><%=link("Edit", to: "/admin/view/#{idea.id}")%></td>
+			<td><%=link("View", to: "/view/idea/#{idea.id}")%></td>
+			<td><%=link("Delete", to: "/admin/delete/#{idea.id}")%></td>
+		</tr>
+	<% end %>
+</table>
+<h2>Create Idea</h2>
+<%= form_for @changeset, Routes.page_path(@conn, :create), fn f -> %>
+	<table>
+		<tr>
+			<td><label>Tag: </label><td>
+			<td><%=text_input f, :tag %><td>
+		</tr>
+		<tr>
+			<td><label>Title: </label><td>
+			<td><%=text_input f, :title %><td>
+		</tr>
+		<tr>
+			<td><label>Content: </label><td>
+			<td><%=textarea f, :content, cols: 75, rows: 50 %><td>
+		</tr>
+	</table>
+	<%= submit "Add Idea" %>
+<% end %>
+
+<!-- 
+	 -->

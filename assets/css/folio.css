@@ -1,0 +1,12 @@
+body {
+	max-width: 800px;
+	width: 90%;
+}
+body,input,textarea {
+	font-family: Iosevka, monospace;
+	background: #191e2a;
+	color: #21ef9f;
+}
+td { margin: 5px; }
+a {color: aqua;}
+a:visited { color:darkcyan; }

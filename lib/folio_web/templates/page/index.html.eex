@@ -1,0 +1,14 @@
+<%=if [] == @ideas do %>
+  <%="No ideas have been listed here, "%>
+<% else %>
+<table>
+  <%=for i <- @ideas do %>
+    <tr>
+      <td><%= link i.tag, to: "/view/bytag/#{i.tag}"%></td>
+      <%#TODO: Only link if there is content%>
+      <td><%= link i.title, to: "/view/idea/#{i.id}"%></td>
+      <td><em>Updated: <%= date_short_fmt(i.updated_at || i.inserted_at) %><em></td>
+    </tr>
+  <% end %>
+</table>
+<%end%>

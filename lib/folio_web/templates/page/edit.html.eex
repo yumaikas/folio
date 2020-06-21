@@ -1,0 +1,18 @@
+<h2>Edit Idea</h2>
+<%= form_for @changeset, Routes.page_path(@conn, :update, @changeset.data.id), fn f -> %>
+	<table>
+		<tr>
+			<td><label>Tag: </label><td>
+			<td><%=text_input f, :tag %><td>
+		</tr>
+		<tr>
+			<td><label>Title: </label><td>
+			<td><%=text_input f, :title %><td>
+		</tr>
+		<tr>
+			<td><label>Content: </label><td>
+			<td><%=textarea f, :content, cols: 75, rows: 50 %><td>
+		</tr>
+	</table>
+	<%= submit "Save changes" %>
+<% end %>

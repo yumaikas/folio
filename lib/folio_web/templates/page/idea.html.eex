@@ -1,0 +1,9 @@
+<div>
+	<h2><%=link @idea.title, to: "/"%></h2>
+	<div id="tag">Tag: <%=link @idea.tag, to: "/view/bytag/#{@idea.tag}"%></div>
+	<%= link "Edit", to: "/admin/view/#{@idea.id}"%>
+	<div id="notes">
+		<%=raw Earmark.as_html!(@idea.content)%>
+		
+	</div>
+</div>
