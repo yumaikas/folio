@@ -1,14 +1,14 @@
 <%=if [] == @ideas do %>
   <%="No ideas have been listed here, "%>
 <% else %>
-<table>
-  <%=for i <- @ideas do %>
-    <tr>
-      <td><%= link i.tag, to: "/view/bytag/#{i.tag}"%></td>
-      <%#TODO: Only link if there is content%>
-      <td><%= link i.title, to: "/view/idea/#{i.id}"%></td>
-      <td><em>Updated: <%= date_short_fmt(i.updated_at || i.inserted_at) %><em></td>
-    </tr>
+  <% groups = Enum.group_by(@ideas, fn i -> i.tag end) 
+            |> Enum.sort_by(fn i -> {g, _} = i; g end)
+            #|> Enum.filter(fn {g, _} -> g !== "" end)
+            %>
+  <%= for {g, ideas} <- groups do %>
+    <h2 id="<%=g%>"><%=link g, to: "/view/bytag/#{g}"%></h2>
+    <%=for i <- ideas do %>
+      <p style="padding-left: 30px;">&gt; <%=link i.title, to: "/view/idea/#{i.id}"%></p>
+    <% end %>
   <% end %>
-</table>
 <%end%>

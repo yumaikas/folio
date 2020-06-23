@@ -19,7 +19,7 @@ defmodule Folio.Wiki do
 
   """
   def list_ideas do
-    Repo.all(Idea)
+    Repo.all(from i in Idea, order_by: [desc: i.updated_at])
   end
 
   def list_ideas(%{:tag => tag}) do
