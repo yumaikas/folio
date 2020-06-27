@@ -1,0 +1,6 @@
+<h2>Are you sure you want to delete this idea?</h2>
+<h3><%=@idea.title%><h3>
+<pre>
+	<%=@idea.content%>
+</pre>
+<%= button "Yes, delete it", to: Routes.page_path(@conn, :delete, @idea.id), method: :delete  %>

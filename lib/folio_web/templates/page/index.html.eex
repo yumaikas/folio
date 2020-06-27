@@ -1,14 +1,10 @@
 <%=if [] == @ideas do %>
-  <%="No ideas have been listed here, "%>
+  <%="No ideas have been listed here yet, come back later."%>
 <% else %>
-  <% groups = Enum.group_by(@ideas, fn i -> i.tag end) 
-            |> Enum.sort_by(fn i -> {g, _} = i; g end)
-            #|> Enum.filter(fn {g, _} -> g !== "" end)
-            %>
-  <%= for {g, ideas} <- groups do %>
-    <h2 id="<%=g%>"><%=link g, to: "/view/bytag/#{g}"%></h2>
+  <%= for {tag, ideas} <- group_ideas_by_tag(@ideas) do %>
+    <h2 id="<%=tag%>"><%=link empty(tag), to: "/view/bytag/#{tag}"%></h2>
     <%=for i <- ideas do %>
-      <p style="padding-left: 30px;">&gt; <%=link i.title, to: "/view/idea/#{i.id}"%></p>
+      <p style="padding-left: 30px;">&gt; <%=link empty(i.title), to: "/view/idea/#{i.id}"%></p>
     <% end %>
   <% end %>
 <%end%>

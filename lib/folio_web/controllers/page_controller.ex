@@ -35,6 +35,18 @@ defmodule FolioWeb.PageController do
   	redirect(conn, to: "/view/idea/#{id}")
   end
 
+  def confirm_delete(conn, %{"id" => id} = _params) do
+    idea = Wiki.get_idea!(id)
+    render(conn, "confirmdelete.html", idea: idea)
+  end
+
+  def delete(conn, %{"id" => id} = _params) do
+    {:ok, _ } = id 
+    |> Wiki.get_idea!
+    |> Wiki.delete_idea
+    redirect(conn, to: "/admin")
+  end
+
   def create(conn, %{"idea" => idea_params} = _params) do
     case Wiki.create_idea(idea_params) do
 	    {:ok, _} -> 
@@ -42,7 +54,7 @@ defmodule FolioWeb.PageController do
 	    {:error, %Ecto.Changeset{} = changeset} ->
 	    	ideas = Wiki.list_ideas()
 	    	render(conn, "admin.html", changeset: changeset, ideas: ideas)
-	end
+  	end
   end
 
   def admin(conn, _params) do

@@ -24,6 +24,8 @@ defmodule FolioWeb.Router do
     get "/admin/view/:id", PageController, :edit
     put "/admin/view/:id", PageController, :update
     post "/admin/create/new", PageController, :create
+    get "/admin/delete/:id", PageController, :confirm_delete
+    delete "/admin/delete/:id", PageController, :delete
   end
 
   # Other scopes may use custom stacks.

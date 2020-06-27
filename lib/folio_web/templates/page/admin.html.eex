@@ -1,13 +1,13 @@
-<table>
-	<%= for idea <- @ideas do %>
-		<tr>
-			<td><%=link(idea.tag, to: "/view/bytag/#{idea.tag}")%></td>
-			<td><%=link("Edit", to: "/admin/view/#{idea.id}")%></td>
-			<td><%=link("View", to: "/view/idea/#{idea.id}")%></td>
-			<td><%=link("Delete", to: "/admin/delete/#{idea.id}")%></td>
-		</tr>
-	<% end %>
-</table>
+<%= for {tag, ideas} <- group_ideas_by_tag(@ideas) do %>
+	<h2 id="<%=tag%>"><%=link(tag, to: "/view/bytag/#{tag}")%> </h2>
+	<%= for idea <- ideas do %>
+		<p>
+		&gt; <%=link("Edit", to: "/admin/view/#{idea.id}")%>
+		<%= [link("Delete", to: "/admin/delete/#{idea.id}"), " "]%>
+		<%= link(empty(idea.title), to: Routes.page_path(@conn, :confirm_delete, idea.id))%> 
+		</p>
+	<%end%>
+<% end %>
 <h2>Create Idea</h2>
 <%= form_for @changeset, Routes.page_path(@conn, :create), fn f -> %>
 	<table>
@@ -26,6 +26,3 @@
 	</table>
 	<%= submit "Add Idea" %>
 <% end %>
-
-<!-- 
-	 -->

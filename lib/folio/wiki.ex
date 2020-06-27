@@ -89,7 +89,7 @@ defmodule Folio.Wiki do
   end
 
   def delete_idea(%Idea{} = idea) do
-    Repo.delete(idea)
+     Repo.delete(idea)
   end
 
   @doc """

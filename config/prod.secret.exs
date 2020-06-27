@@ -25,6 +25,7 @@ secret_key_base =
 
 config :folio, FolioWeb.Endpoint,
   http: [
+    host: "localhost",
     port: String.to_integer(System.get_env("PORT") || "4000"),
     transport_options: [socket_opts: [:inet6]]
   ],

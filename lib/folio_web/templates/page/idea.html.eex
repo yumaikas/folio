@@ -2,8 +2,11 @@
 	<h2><%=link @idea.title, to: "/"%></h2>
 	<div id="tag">Tag: <%=link @idea.tag, to: "/view/bytag/#{@idea.tag}"%></div>
 	<%= link "Edit", to: "/admin/view/#{@idea.id}"%>
+	<br/>
+
+	<em>Created: <%=date_short_fmt(@idea.inserted_at)%></em> <br/>
+	<em>Updated: <%=date_short_fmt(@idea.updated_at)%></em>
 	<div id="notes">
-		<%=raw Earmark.as_html!(@idea.content)%>
-		
+		<%=raw HtmlSanitizeEx.markdown_html(Folio.Earmark.as_html!(@idea.content, pure_links: true))%>
 	</div>
 </div>
