@@ -1,4 +1,4 @@
-<%= for {tag, ideas} <- group_ideas_by_tag(@ideas) do %>
+<%= for {tag, ideas} <- group_ideas_by({:bytag, :asc},@ideas) do %>
 	<h2 id="<%=tag%>"><%=link(tag, to: "/view/bytag/#{tag}")%> </h2>
 	<%= for idea <- ideas do %>
 		<p>

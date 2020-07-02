@@ -26,6 +26,21 @@ defmodule Folio.Wiki do
     Repo.all(from i in Idea, where: i.tag == ^tag)
   end
 
+  def list_ideas(%{:year_month_inserted => year_month}) do
+    {year, month} = year_month
+    Repo.all(from i in Idea, 
+      where: fragment("DATE_PART('year', inserted_at)") == ^year
+        and fragment("DATE_PART('month', inserted_at)") == ^month)
+  end
+
+  def list_ideas(%{:year_month_updated => year_month}) do
+    {year, month} = year_month
+    Repo.all(from i in Idea, 
+      where: fragment("DATE_PART('year', updated_at)") == ^year
+        and fragment("DATE_PART('month', updated_at)") == ^month)
+  end
+
+
   @doc """
   Gets a single idea.
 

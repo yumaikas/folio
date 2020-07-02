@@ -1,7 +1,12 @@
 <%=if [] == @ideas do %>
   <%="No ideas have been listed here yet, come back later."%>
 <% else %>
-  <%= for {tag, ideas} <- group_ideas_by_tag(@ideas) do %>
+  Sort by: 
+  <%= [link("Date ascending", to: "/?sort=bydate-asc"), " "] %>
+  <%= [link("Tag ascending", to: "/?sort=bytag-asc"), " "] %>
+  <%= [link("Date descending", to: "/?sort=bydate-desc"), " "] %>
+  <%= [link("Tag descending", to: "/?sort=bytag-desc"), " "] %>
+  <%= for {tag, ideas} <- group_ideas_by(@sort, @ideas) do %>
     <h2 id="<%=tag%>"><%=link empty(tag), to: "/view/bytag/#{tag}"%></h2>
     <%=for i <- ideas do %>
       <p style="padding-left: 30px;">&gt; <%=link empty(i.title), to: "/view/idea/#{i.id}"%></p>

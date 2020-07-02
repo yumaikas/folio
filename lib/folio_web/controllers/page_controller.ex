@@ -3,9 +3,22 @@ defmodule FolioWeb.PageController do
   alias Folio.Wiki
   alias Folio.Wiki.Idea
 
+
+  def index(conn, %{"sort" => sort} = _params) do
+    ideas = Wiki.list_ideas()
+    sort = case sort do
+      "bydate-desc" -> { :bydate, :desc }
+      "bydate-asc" -> { :bydate, :asc }
+      "bytag-asc" -> { :bytag, :asc }
+      "bytag-desc" ->  { :bytag, :desc }
+      _ -> { :bytag, :asc }
+    end
+    render(conn, "index.html", ideas: ideas, sort: sort)
+  end
+
   def index(conn, _params) do
     ideas = Wiki.list_ideas()
-    render(conn, "index.html", ideas: ideas)
+    render(conn, "index.html", ideas: ideas, sort: {:bytag, :asc})
   end
 
   def new(conn, _params) do
@@ -13,7 +26,7 @@ defmodule FolioWeb.PageController do
   	render(conn, "new.html", changeset: changeset)
   end
 
-  def tag(conn, %{"tag" => tag}=params) do
+  def tag(conn, %{"tag" => tag} = params) do
   	ideas = Wiki.list_ideas(%{:tag => tag})
   	render(conn, "index.html", ideas: ideas)
   end
