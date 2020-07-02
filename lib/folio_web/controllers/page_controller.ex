@@ -28,7 +28,7 @@ defmodule FolioWeb.PageController do
 
   def tag(conn, %{"tag" => tag} = params) do
   	ideas = Wiki.list_ideas(%{:tag => tag})
-  	render(conn, "index.html", ideas: ideas)
+  	render(conn, "index.html", ideas: ideas, sort: {:bydate, :asc})
   end
 
   def show(conn, %{"id"=> id} = params) do
